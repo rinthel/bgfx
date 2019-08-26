@@ -5014,6 +5014,15 @@ namespace bgfx
 		BGFX_CHECK_API_THREAD();
 		s_ctx->requestScreenShot(_handle, _filePath);
 	}
+
+	uint32_t getInternalTextureId(TextureHandle _handle)
+    {
+	    uint32_t id = 0;
+#if (BGFX_CONFIG_RENDERER_OPENGLES || BGFX_CONFIG_RENDERER_OPENGL)
+	    id = s_ctx->m_renderCtx->getInternal(_handle);
+#endif
+	    return id;
+    }
 } // namespace bgfx
 
 #if BX_PLATFORM_WINDOWS
