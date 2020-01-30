@@ -3144,12 +3144,12 @@ namespace bgfx { namespace d3d9
 		&&  NULL != m_ptr)
 		{
 			IDirect3DSurface9* surface = getSurface();
-			DX_CHECK(s_renderD3D9->m_device->StretchRect(m_surface
+			s_renderD3D9->m_device->StretchRect(m_surface
 				, NULL
 				, surface
 				, NULL
 				, D3DTEXF_LINEAR
-				) );
+				);
 			DX_RELEASE(surface, 1);
 
 			if (1 < m_numMips
