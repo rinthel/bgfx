@@ -163,7 +163,7 @@ EGL_IMPORT
 
 		m_eglLibrary = eglOpen();
 
-		if (NULL == g_platformData.context)
+		if (NULL == m_context)
 		{
 #	if BX_PLATFORM_RPI
 			g_platformData.ndt = EGL_DEFAULT_DISPLAY;
@@ -268,6 +268,13 @@ EGL_IMPORT
 
 			const uint32_t gles = BGFX_CONFIG_RENDERER_OPENGLES;
 
+			EGLContext sharedContext = EGL_NO_CONTEXT;
+
+            if (NULL != g_platformData.context)
+            {
+                sharedContext = (EGLContext*)g_platformData.context;
+            }
+
 			for (uint32_t ii = 0; ii < 2; ++ii)
 			{
 				bx::StaticMemoryBlockWriter writer(s_contextAttrs, sizeof(s_contextAttrs) );
@@ -311,7 +318,7 @@ EGL_IMPORT
 
 				bx::write(&writer, EGLint(EGL_NONE) );
 
-				m_context = eglCreateContext(m_display, m_config, EGL_NO_CONTEXT, s_contextAttrs);
+				m_context = eglCreateContext(m_display, m_config, sharedContext, s_contextAttrs);
 				if (NULL != m_context)
 				{
 					break;
