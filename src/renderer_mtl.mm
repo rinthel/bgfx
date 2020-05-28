@@ -820,7 +820,7 @@ namespace bgfx { namespace mtl
 		void* createTexture(TextureHandle _handle, const Memory* _mem, uint64_t _flags, uint8_t _skip) override
 		{
 			m_textures[_handle.idx].create(_mem, _flags, _skip);
-			return NULL;
+			return m_textures[_handle.idx].m_ptr.m_obj;
 		}
 
 		void updateTextureBegin(TextureHandle /*_handle*/, uint8_t /*_side*/, uint8_t /*_mip*/) override
